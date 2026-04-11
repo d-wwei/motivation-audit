@@ -3,18 +3,15 @@
 ## Quick install
 
 ```bash
-# 1. Copy cognitive protocol to Claude's config
-cp cognitive-protocol.md ~/.claude/motivation-audit.md
-
-# 2. Add reference in CLAUDE.md
-echo '@~/.claude/motivation-audit.md' >> ~/.claude/CLAUDE.md
+# 1. Inject core rules into CLAUDE.md (direct content injection — works on all versions)
+cat cognitive-protocol.md >> ~/.claude/CLAUDE.md
 ```
 
 ## What gets loaded where
 
 | File | Destination | Purpose |
 |---|---|---|
-| `cognitive-protocol.md` | `~/.claude/motivation-audit.md` | Always-on core rules (~30 lines) |
+| `cognitive-protocol.md` | `~/.claude/CLAUDE.md` (appended) | Always-on core rules (~30 lines) |
 | `SKILL.md` | `~/.claude/skills/motivation-audit/SKILL.md` | Full reference (loaded on demand) |
 | `anti-patterns.md` | `~/.claude/skills/motivation-audit/anti-patterns.md` | Detailed anti-pattern guide |
 | `examples.md` | `~/.claude/skills/motivation-audit/examples.md` | Before/after reference |
@@ -22,8 +19,8 @@ echo '@~/.claude/motivation-audit.md' >> ~/.claude/CLAUDE.md
 ## Full install (with skill files)
 
 ```bash
-# 1. Core rules
-cp cognitive-protocol.md ~/.claude/motivation-audit.md
+# 1. Core rules (inject directly into CLAUDE.md)
+cat cognitive-protocol.md >> ~/.claude/CLAUDE.md
 
 # 2. Skill files
 mkdir -p ~/.claude/skills/motivation-audit
@@ -31,8 +28,7 @@ cp SKILL.md ~/.claude/skills/motivation-audit/
 cp anti-patterns.md ~/.claude/skills/motivation-audit/
 cp examples.md ~/.claude/skills/motivation-audit/
 
-# 3. Register in CLAUDE.md
-echo '@~/.claude/motivation-audit.md' >> ~/.claude/CLAUDE.md
+# 3. (Core rules already injected in step 1)
 ```
 
 ## Verify
@@ -41,19 +37,18 @@ Ask Claude Code: "What are the motivation-audit cognitive rules you're following
 
 ## Stacking with other cognitive bases
 
-Motivation Audit loads FIRST -- before frame-auditing, before first-principles. It audits the driver of reasoning, not the reasoning itself. If `~/.claude/frame-auditing.md` or `~/.claude/first-principles.md` are already referenced in `CLAUDE.md`, place `motivation-audit.md` BEFORE them.
+Motivation Audit loads FIRST -- before frame-auditing, before first-principles. It audits the driver of reasoning, not the reasoning itself. If Frame Auditing or First Principles is already injected into `CLAUDE.md`, inject Motivation Audit content BEFORE them.
 
-Recommended loading order in `CLAUDE.md`:
+Recommended injection order in `CLAUDE.md`:
 ```
-@~/.claude/motivation-audit.md
-@~/.claude/frame-auditing.md
-@~/.claude/first-principles.md
+(Motivation Audit content)
+(Frame Auditing content)
+(First Principles content)
 ```
 
 ## Uninstall
 
 ```bash
-rm ~/.claude/motivation-audit.md
+# Remove the Motivation Audit section from ~/.claude/CLAUDE.md (search for "# Motivation Audit -- Cognitive Protocol" header)
 rm -rf ~/.claude/skills/motivation-audit
-# Remove the @~/.claude/motivation-audit.md line from ~/.claude/CLAUDE.md
 ```
