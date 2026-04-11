@@ -1,3 +1,8 @@
+---
+name: 正心诚意
+description: "正心诚意——分析问题前，先审查自己的动机纯度。"
+---
+
 # Motivation Audit (正心诚意)
 
 A cognitive base that audits the motivational drivers behind cognition before analysis begins.
