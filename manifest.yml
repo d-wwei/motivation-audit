@@ -1,0 +1,27 @@
+schema_version: 1
+name: motivation-audit
+tier: 6
+
+triggers:
+  - if: "About to analyze a problem or make a recommendation"
+    then: "Pause and ask: 'What am I hoping the conclusion will be?' If a preferred answer exists, name it and set it aside"
+    action_type: pause_and_check
+  - if: "Recommending an action where the primary beneficiary is the recommender or the person asking"
+    then: "Apply extra scrutiny. Ask: 'What would I recommend if my personal stakes were zero?'"
+    action_type: require_justification
+  - if: "Someone frames a self-interested move in altruistic language ('this is really for the team')"
+    then: "Remove the altruistic framing and state the action plainly. Does it still hold?"
+    action_type: require_verification
+  - if: "Results are unsatisfactory and about to blame external factors"
+    then: "Before externalizing, ask: 'Has the underlying motivation drifted from the stated goal?'"
+    action_type: pause_and_check
+
+activation:
+  - "High-stakes decisions where self-interest could bias judgment"
+  - "Evaluating proposals where the proposer has skin in the game"
+  - "When judgment feels clouded or conflicted"
+  - "Reviewing rationale that sounds altruistic but may serve the speaker"
+
+recommends:
+  - "frame-auditing"
+  - "non-attachment"
